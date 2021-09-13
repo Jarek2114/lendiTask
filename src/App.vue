@@ -1,32 +1,51 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div id="app" data-app>
     <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+  import { Component, Vue } from 'vue-property-decorator';
+  import { Action } from 'vuex-class';
 
-#nav {
-  padding: 30px;
+  @Component({
+    components: {}
+  })
+  export default class App extends Vue {
+    @Action('login')
+    login;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+    created(): void {
+      this.login();
     }
   }
-}
+</script>
+
+<style lang="scss">
+  @import '@/styles/variables.scss';
+  @import '@/styles/mixins.scss';
+
+  #app {
+    font-family: Roboto Condensed, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: $font-color;
+
+    h1 {
+      @include h1();
+    }    
+    
+    h2, .v-avatar {
+      @include h2();
+    }
+
+    a {
+      text-decoration: none;
+      color: $font-color;
+    }
+    .v-avatar {
+      background-color: $background;
+    }
+  }
 </style>
