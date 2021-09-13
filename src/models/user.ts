@@ -1,5 +1,10 @@
 import { Person } from "./person";
 
-export interface User extends Person {
-    id: string
+export class User implements Person {
+    id = '';
+    firstName = '';
+    lastName = '';
+    email = '';
+    phone = '';
+    birthDate: Date = new Date();
 }

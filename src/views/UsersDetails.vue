@@ -77,7 +77,6 @@
   .user-details {
     display: flex;
     flex-wrap: wrap;
-    padding: 15px;
 
     @include afterMobile() {
       padding: 50px 70px;

@@ -11,7 +11,8 @@
          </v-list-item-content>
       </v-list-item>
     </v-list>
-    <v-btn @click="showAddUserModal">Add user</v-btn>
+    <v-btn @click="onCreateUserCLick">Add user</v-btn>
+    <user-form v-if="showUserForm" @close="onCreateUserCLick"></user-form>
   </div>
 </template>
 
@@ -20,12 +21,14 @@
   import { Component, Vue } from 'vue-property-decorator';
   import { Action, Getter } from 'vuex-class';
   import UserListElement from '@/components/UserListElement.vue';
+  import UserForm from '@/components/UserForm.vue';
   import { User } from '@/models/user';
   import { EnumRoutes } from '@/enums/EnumRoutes';
 
   @Component({
     components: {
-      UserListElement
+      UserListElement,
+      UserForm
     },
   })
   export default class Home extends Vue {
@@ -34,6 +37,12 @@
     
     @Action('createUser')
     createUser;
+
+    showUserForm = false;
+
+    onCreateUserCLick(): void {
+      this.showUserForm = !this.showUserForm;
+    }
 
     getDetailsRoute(id: string): any {
       return { name: EnumRoutes.USER_DETAILS, params: { id } };
