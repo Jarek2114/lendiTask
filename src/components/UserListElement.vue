@@ -22,7 +22,7 @@
         mdi-delete
       </v-icon>
     </v-btn>
-    <user-form v-if="showUserForm" @close="onEditUserCLick" :user="user" :edit-mode="true"></user-form>
+    <user-form v-if="showUserForm" @close="onEditUserCLick" :user="userClon" :edit-mode="true"></user-form>
   </div>
 </template>
 
@@ -50,6 +50,10 @@
 
     onRemoveUserCLick(): void {
       this.removeUser(this.user.id);
+    }
+
+    get userClon(): User {
+      return { ...this.user };
     }
 
     get initials(): string {

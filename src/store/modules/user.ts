@@ -1,11 +1,12 @@
 import { UserState } from '@/models/userState';
 import { Person } from '@/models/person';
 import { User } from '@/models/user';
-import { SET_USERS, ADD_USER, REMOVE_USER } from '../mutation-types';
+import { SET_USERS, ADD_USER, REMOVE_USER, SET_SERVER_ERRORS } from '../mutation-types';
 import usersApi from '@/api/users';
 
 const state: UserState = {
-    users: []
+    users: [],
+    errors: []
 }
 
 const getters = {
@@ -29,7 +30,16 @@ const actions = {
         usersApi.removeUser(id).then(() => {
             commit(REMOVE_USER, id);
         });
-    }
+    },   
+    updateUser({ commit }: any, { id, user}: { id: string, user: User} ) {
+        return usersApi.updateUser(id, user).then((response) => {
+            commit(SET_SERVER_ERRORS, []);
+        }).catch(error => {
+            if (error.response && error.response.data && error.response.data.errors) {
+                commit(SET_SERVER_ERRORS, error.response.data.errors);
+            }
+        });
+    },
 }
 
 const mutations = {
